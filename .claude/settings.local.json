@@ -1,14 +1,16 @@
 {
   "permissions": {
-    "defaultMode": "plan",
     "allow": [
       "mcp__serena__list_dir",
       "mcp__serena__activate_project",
       "mcp__serena__get_symbols_overview",
       "mcp__serena__find_symbol",
-      "Bash(xcodebuild:*)"
+      "Bash(xcodebuild:*)",
+      "mcp__serena__find_file",
+      "mcp__serena__replace_symbol_body"
     ],
     "deny": [],
-    "ask": []
+    "ask": [],
+    "defaultMode": "plan"
   }
 }
