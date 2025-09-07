@@ -64,13 +64,10 @@ struct PatternDetailView: View {
                             .fontWeight(.semibold)
                     }
                     
-                    Text(pattern.description)
-                        .font(.body)
-                        .foregroundColor(.primary)
-                        .lineSpacing(2)
-                        .padding(.leading, 4)
+                    MarkdownText(pattern.description)
                 }
                 .padding(20)
+                .frame(maxWidth: .infinity)
                 .background(
                     LinearGradient(
                         gradient: Gradient(colors: [
@@ -143,10 +140,7 @@ struct PatternDetailView: View {
                     
                     ScrollView {
                         VStack(alignment: .leading, spacing: 16) {
-                            Text(pattern.iOSUsage)
-                                .font(.body)
-                                .foregroundColor(.primary)
-                                .lineSpacing(3)
+                            MarkdownText(pattern.iOSUsage, lineSpacing: 3)
                         }
                         .padding(.top, 8)
                     }
@@ -154,6 +148,7 @@ struct PatternDetailView: View {
                     .clipped()
                 }
                 .padding(20)
+                .frame(maxWidth: .infinity)
                 .background(
                     LinearGradient(
                         gradient: Gradient(colors: [
@@ -220,6 +215,7 @@ struct PatternDetailView: View {
                     .clipped()
                 }
                 .padding(20)
+                .frame(maxWidth: .infinity)
                 .background(
                     LinearGradient(
                         gradient: Gradient(colors: [
@@ -284,6 +280,106 @@ struct ScaleButtonStyle: ButtonStyle {
         configuration.label
             .scaleEffect(configuration.isPressed ? 0.95 : 1.0)
             .animation(.spring(response: 0.2, dampingFraction: 0.8), value: configuration.isPressed)
+    }
+}
+
+// Markdown文本渲染组件
+struct MarkdownText: View {
+    let markdown: String
+    let font: Font
+    let foregroundColor: Color
+    let lineSpacing: CGFloat
+    
+    init(_ markdown: String, font: Font = .body, foregroundColor: Color = .primary, lineSpacing: CGFloat = 2) {
+        self.markdown = markdown
+        self.font = font
+        self.foregroundColor = foregroundColor
+        self.lineSpacing = lineSpacing
+    }
+    
+    var body: some View {
+        VStack(alignment: .leading, spacing: lineSpacing) {
+            ForEach(parseMarkdownLines(), id: \.id) { line in
+                MarkdownLineView(line: line, font: font, foregroundColor: foregroundColor)
+            }
+        }
+    }
+    
+    private func parseMarkdownLines() -> [MarkdownLine] {
+        let lines = markdown.components(separatedBy: .newlines)
+        return lines.enumerated().map { index, content in
+            MarkdownLine(id: UUID().uuidString, content: content)
+        }
+    }
+}
+
+struct MarkdownLine: Identifiable {
+    let id: String
+    let content: String
+}
+
+struct MarkdownLineView: View {
+    let line: MarkdownLine
+    let font: Font
+    let foregroundColor: Color
+    
+    var body: some View {
+        HStack(alignment: .top, spacing: 8) {
+            if line.content.trimmingCharacters(in: .whitespaces).hasPrefix("•") {
+                // 项目符号行
+                Text("•")
+                    .font(font)
+                    .foregroundColor(foregroundColor)
+                    .fontWeight(.medium)
+                
+                Text(processBulletLine(line.content))
+                    .font(font)
+                    .foregroundColor(foregroundColor)
+                    .lineSpacing(2)
+                
+                Spacer()
+            } else {
+                // 普通文本行，支持粗体
+                Text(processBoldText(line.content))
+                    .font(font)
+                    .foregroundColor(foregroundColor)
+                    .lineSpacing(2)
+                
+                Spacer()
+            }
+        }
+    }
+    
+    private func processBulletLine(_ content: String) -> String {
+        return content.trimmingCharacters(in: .whitespaces)
+            .dropFirst()
+            .trimmingCharacters(in: .whitespaces)
+    }
+    
+    private func processBoldText(_ content: String) -> AttributedString {
+        var attributedString = AttributedString(content)
+        
+        // 查找所有 **粗体** 文本
+        let boldPattern = "\\*\\*([^*]+)\\*\\*"
+        let regex = try? NSRegularExpression(pattern: boldPattern, options: [])
+        
+        if let matches = regex?.matches(in: content, options: [], range: NSRange(content.startIndex..., in: content)) {
+            for match in matches.reversed() {
+                if let range = Range(match.range, in: content),
+                   let attributedRange = Range(range, in: attributedString) {
+                    let boldText = String(content[range])
+                    let cleanText = String(boldText.dropFirst(2).dropLast(2))
+                    
+                    // 创建一个带有粗体属性的AttributedString
+                    var boldAttributedString = AttributedString(cleanText)
+                    boldAttributedString.font = .systemFont(ofSize: 17, weight: .bold)
+                    
+                    attributedString.replaceSubrange(attributedRange, with: boldAttributedString)
+                }
+            }
+        }
+        
+        return attributedString
     }
 }
 
