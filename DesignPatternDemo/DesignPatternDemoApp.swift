@@ -11,7 +11,17 @@ import SwiftUI
 struct DesignPatternDemoApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            TabView {
+                DataStructuresView()
+                    .tabItem {
+                        Label("数据结构", systemImage: "list.bullet")
+                    }
+                
+                DesignPatternsView()
+                    .tabItem {
+                        Label("设计模式", systemImage: "puzzlepiece")
+                    }
+            }
         }
     }
 }

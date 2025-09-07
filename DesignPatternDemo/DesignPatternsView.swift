@@ -1,5 +1,5 @@
 //
-//  ContentView.swift
+//  DesignPatternsView.swift
 //  DesignPatternDemo
 //
 //  Created by LIJIANFEI on 7/9/25.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ContentView: View {
+struct DesignPatternsView: View {
     private let patterns = DesignPattern.allCases
     
     var body: some View {
@@ -122,5 +122,5 @@ struct PatternRow: View {
 }
 
 #Preview {
-    ContentView()
+    DesignPatternsView()
 }
