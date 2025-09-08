@@ -396,10 +396,54 @@ struct DataStructureMarkdownText: View {
     }
     
     private func parseMarkdownBlocks() -> [DataStructureMarkdownBlock] {
-        let blocks = markdown.components(separatedBy: .newlines)
-        return blocks.enumerated().map { index, content in
-            DataStructureMarkdownBlock(id: UUID().uuidString, content: content.trimmingCharacters(in: .whitespacesAndNewlines))
-        }.filter { !$0.content.isEmpty }
+        var blocks: [DataStructureMarkdownBlock] = []
+        let lines = markdown.components(separatedBy: .newlines)
+        var currentBlock = ""
+        var inCodeBlock = false
+        
+        for line in lines {
+            let trimmedLine = line.trimmingCharacters(in: .whitespacesAndNewlines)
+            
+            if trimmedLine.hasPrefix("```") {
+                if inCodeBlock {
+                    // 结束代码块
+                    currentBlock += line
+                    blocks.append(DataStructureMarkdownBlock(id: UUID().uuidString, content: currentBlock))
+                    currentBlock = ""
+                    inCodeBlock = false
+                } else {
+                    // 开始代码块
+                    if !currentBlock.isEmpty {
+                        blocks.append(DataStructureMarkdownBlock(id: UUID().uuidString, content: currentBlock))
+                    }
+                    currentBlock = line
+                    inCodeBlock = true
+                }
+            } else if inCodeBlock {
+                // 代码块内的行
+                currentBlock += "\n" + line
+            } else if trimmedLine.isEmpty {
+                // 空行
+                if !currentBlock.isEmpty {
+                    blocks.append(DataStructureMarkdownBlock(id: UUID().uuidString, content: currentBlock))
+                    currentBlock = ""
+                }
+            } else {
+                // 普通行
+                if !currentBlock.isEmpty {
+                    currentBlock += "\n" + line
+                } else {
+                    currentBlock = line
+                }
+            }
+        }
+        
+        // 添加最后一个块
+        if !currentBlock.isEmpty {
+            blocks.append(DataStructureMarkdownBlock(id: UUID().uuidString, content: currentBlock))
+        }
+        
+        return blocks
     }
 }
 
@@ -455,9 +499,11 @@ struct DataStructureMarkdownBlockView: View {
     }
     
     private func extractBulletText(_ content: String) -> String {
-        return content.trimmingCharacters(in: .whitespaces)
-            .dropFirst()
-            .trimmingCharacters(in: .whitespaces)
+        let trimmed = content.trimmingCharacters(in: .whitespaces)
+        if trimmed.hasPrefix("-") || trimmed.hasPrefix("•") {
+            return trimmed.dropFirst().trimmingCharacters(in: .whitespaces)
+        }
+        return trimmed
     }
 }
 
@@ -472,7 +518,7 @@ struct DataStructureParagraphView: View {
                 markdown: text,
                 options: AttributedString.MarkdownParsingOptions(
                     allowsExtendedAttributes: true,
-                    interpretedSyntax: .inlineOnlyPreservingWhitespace
+                    interpretedSyntax: .full
                 )
             ) {
                 Text(attributedString)
@@ -708,7 +754,7 @@ struct DataStructureBulletPointView: View {
             markdown: text,
             options: AttributedString.MarkdownParsingOptions(
                 allowsExtendedAttributes: true,
-                interpretedSyntax: .inlineOnlyPreservingWhitespace
+                interpretedSyntax: .full
             )
         ) {
             HStack(alignment: .top, spacing: 8) {
