@@ -576,14 +576,14 @@ print(dataStructure.contains(2)) // true
         switch self {
         case .array:
             return """
-## 在 iOS 开发中的应用
+### 在 iOS 开发中的应用
 
-### 1. 数据存储
+#### 1. 数据存储
 - **TableView/CollectionView 数据源**: 数组是最常用的数据源类型
 - **配置数组**: 存储单元格配置信息、图片等
 - **本地缓存**: 临时存储从网络获取的数据
 
-### 2. 实际应用场景
+#### 2. 实际应用场景
 ```swift
 // TableView 数据源
 class ViewController: UIViewController, UITableViewDataSource {
@@ -601,26 +601,26 @@ class ViewController: UIViewController, UITableViewDataSource {
 }
 ```
 
-### 3. 优势
+#### 3. 优势
 - **内存连续**: 访问速度快，时间复杂度 O(1)
 - **类型安全**: Swift 数组是类型安全的
 - **易于使用**: 提供丰富的 API
 
-### 4. 注意事项
+#### 4. 注意事项
 - 插入和删除操作较慢 O(n)
 - 大数组可能影响性能
 - 考虑使用懒加载优化内存使用
 """
         case .stack:
             return """
-## 在 iOS 开发中的应用
+### 在 iOS 开发中的应用
 
-### 1. 导航控制器
+#### 1. 导航控制器
 - **UINavigationController**: 使用栈管理视图控制器
 - **pushViewController**: 压栈操作
 - **popViewController**: 出栈操作
 
-### 2. 实际应用场景
+#### 2. 实际应用场景
 ```swift
 // 导航栈示例
 let navigationController = UINavigationController()
@@ -638,26 +638,26 @@ navigationController.popViewControllerAnimated(true)
 print(navigationController.viewControllers.count)
 ```
 
-### 3. 其他应用
+#### 3. 其他应用
 - **撤销操作**: 记录操作历史
 - **表达式求值**: 数学表达式的计算
 - **深度优先搜索**: 图和树的遍历算法
 
-### 4. 优势
+#### 4. 优势
 - **LIFO 特性**: 后进先出的特性适合特定场景
 - **操作简单**: 只在栈顶进行操作
 - **内存效率**: 不需要频繁的内存分配
 """
         case .queue:
             return """
-## 在 iOS 开发中的应用
+### 在 iOS 开发中的应用
 
-### 1. 操作队列
+#### 1. 操作队列
 - **OperationQueue**: 管理异步操作的队列
 - **DispatchQueue**: GCD 中的队列概念
 - **任务调度**: 按顺序执行任务
 
-### 2. 实际应用场景
+#### 2. 实际应用场景
 ```swift
 // DispatchQueue 示例
 let queue = DispatchQueue(label: "com.example.queue")
@@ -677,27 +677,27 @@ DispatchQueue.main.async {
 }
 ```
 
-### 3. 其他应用
+#### 3. 其他应用
 - **消息处理**: 消息队列的处理
 - **广度优先搜索**: 图和树的遍历算法
 - **缓冲区管理**: 生产者-消费者模式
 
-### 4. 优势
+#### 4. 优势
 - **FIFO 特性**: 先进先出的特性保证公平性
 - **任务管理**: 很好的任务调度机制
 - **线程安全**: 提供线程安全的操作
 """
         case .dictionary:
             return """
-## 在 iOS 开发中的应用
+### 在 iOS 开发中的应用
 
-### 1. 数据存储
+#### 1. 数据存储
 - **UserDefaults**: 使用字典存储用户偏好设置
 - **JSON 解析**: JSON 数据通常解析为字典
 - **API 响应**: 网络请求的响应数据
 
-### 2. 实际应用场景
-\\`\\`\\`swift
+#### 2. 实际应用场景
+```swift
 // UserDefaults 示例
 let defaults = UserDefaults.standard
 defaults.set("John", forKey: "name")
@@ -707,7 +707,7 @@ let name = defaults.string(forKey: "name")
 let age = defaults.integer(forKey: "age")
 
 // JSON 解析示例
-let jsonString = "{\\"name\\": \\"John\\", \\"age\\": 25, \\"city\\": \\"New York\\"}"
+let jsonString = "{\"name\": \"John\", \"age\": 25, \"city\": \"New York\"}"
 
 if let data = jsonString.data(using: .utf8) {
     let json = try? JSONSerialization.jsonObject(with: data, options: [])
@@ -715,36 +715,36 @@ if let data = jsonString.data(using: .utf8) {
         print(dict["name"] as! String)
     }
 }
-\\`\\`\\`
+```
 
-### 3. 其他应用
+#### 3. 其他应用
 - **配置管理**: 应用配置信息的存储
 - **数据映射**: 对象属性映射
 - **缓存系统**: 键值对缓存
 
-### 4. 优势
+#### 4. 优势
 - **快速查找**: 平均时间复杂度 O(1)
 - **灵活性**: 可以存储不同类型的值
 - **易于使用**: 语法简洁明了
 """
         default:
             return """
-## 在 iOS 开发中的应用
+### 在 iOS 开发中的应用
 
-### 1. 基本应用
+#### 1. 基本应用
 - **数据存储**: 作为基础数据结构使用
 - **算法实现**: 各种算法的基础
 - **性能优化**: 选择合适的数据结构优化性能
 
-### 2. 实际应用场景
+#### 2. 实际应用场景
 \(rawValue) 在 iOS 开发中有多种应用场景，包括数据存储、算法实现、性能优化等。
 
-### 3. 优势
+#### 3. 优势
 - **适合特定场景**: 根据具体需求选择合适的数据结构
 - **性能优化**: 正确选择数据结构可以显著提升性能
 - **代码清晰**: 使用合适的数据结构使代码更易理解
 
-### 4. 注意事项
+#### 4. 注意事项
 - 根据具体需求选择合适的数据结构
 - 考虑时间复杂度和空间复杂度的权衡
 - 注意内存使用和性能的影响

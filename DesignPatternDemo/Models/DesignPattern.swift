@@ -104,74 +104,74 @@ enum DesignPattern: String, CaseIterable, Identifiable {
         switch self {
         case .singleton:
             return """
-            **iOS应用场景：**
-            • UserDefaults.standard - 应用配置管理
-            • FileManager.default - 文件系统操作
-            • UIScreen.main - 屏幕信息获取
-            • UIApplication.shared - 应用全局访问
+            ### iOS应用场景：
+            - UserDefaults.standard - 应用配置管理
+            - FileManager.default - 文件系统操作
+            - UIScreen.main - 屏幕信息获取
+            - UIApplication.shared - 应用全局访问
             
-            **实际应用：**
+            #### 实际应用：
             - 网络管理器单例，统一管理所有网络请求
             - 数据库管理器单例，提供数据库操作接口
             - 用户会话管理器，管理用户登录状态
             - 缓存管理器，统一管理应用缓存
             
-            **最佳实践：**
+            #### 最佳实践：
             - 使用静态常量而非可选类型确保线程安全
             - 避免在单例中保存过多状态，防止内存泄漏
             - 考虑使用依赖注入替代单例，提高可测试性
             """
         case .factoryMethod:
             return """
-            **iOS应用场景：**
-            • UIViewController 实例化 - UIStoryboard.instantiateViewController
-            • UIView 创建 - 自定义视图工厂方法
-            • UITableViewCell 创建 - 基于重用标识符的工厂方法
+            ### iOS应用场景：
+            - UIViewController 实例化 - UIStoryboard.instantiateViewController
+            - UIView 创建 - 自定义视图工厂方法
+            - UITableViewCell 创建 - 基于重用标识符的工厂方法
             
-            **实际应用：**
+            #### 实际应用：
             - 不同类型的TableViewCell工厂创建
             - 基于API响应的模型对象创建
             - 不同主题的UI组件工厂创建
             - 网络请求响应的数据解析器工厂
             
-            **最佳实践：**
+            #### 最佳实践：
             - 结合协议定义产品接口，提高扩展性
             - 使用泛型工厂方法减少重复代码
             - 考虑使用依赖注入容器管理工厂
             """
         case .abstractFactory:
             return """
-            **iOS应用场景：**
-            • 不同平台UI组件工厂 - iOS/iPad/Mac Catalyst
-            • 主题系统 - 明暗主题UI组件创建
-            • 数据持久化工厂 - Core Data/Realm/SQLite
+            ### iOS应用场景：
+            - 不同平台UI组件工厂 - iOS/iPad/Mac Catalyst
+            - 主题系统 - 明暗主题UI组件创建
+            - 数据持久化工厂 - Core Data/Realm/SQLite
             
-            **实际应用：**
+            #### 实际应用：
             - 创建支持多种主题的UI组件工厂
             - 构建跨平台的视图组件创建系统
             - 不同数据源的统一访问接口
             - 多种支付方式的抽象工厂
             
-            **最佳实践：**
+            #### 最佳实践：
             - 确保产品族的一致性，避免混合使用不同工厂的产品
             - 使用依赖注入注入具体的工厂实现
             - 考虑使用协议组合定义复杂的工厂接口
             """
         case .builder:
             return """
-            **iOS应用场景：**
-            • NSAttributedString 构建复杂富文本
-            • UIBezierPath 构建复杂图形路径
-            • URLComponents 构建URL
-            • NSLayoutConstraint 构建约束
+            ### iOS应用场景：
+            - NSAttributedString 构建复杂富文本
+            - UIBezierPath 构建复杂图形路径
+            - URLComponents 构建URL
+            - NSLayoutConstraint 构建约束
             
-            **实际应用：**
+            #### 实际应用：
             - 复杂表单验证器的构建
             - 网络请求配置的构建
             - 动画配置参数的构建
             - 自定义视图属性的构建
             
-            **最佳实践：**
+            #### 最佳实践：
             - 提供合理的默认值，简化构建过程
             - 支持链式调用，提高代码可读性
             - 在build()方法中进行参数验证
@@ -179,18 +179,18 @@ enum DesignPattern: String, CaseIterable, Identifiable {
             """
         case .prototype:
             return """
-            **iOS应用场景：**
-            • NSCopying 协议实现对象复制
-            • UIView 复制用于相似界面
-            • 模型对象复制用于数据编辑
+            ### iOS应用场景：
+            - NSCopying 协议实现对象复制
+            - UIView 复制用于相似界面
+            - 模型对象复制用于数据编辑
             
-            **实际应用：**
+            #### 实际应用：
             - 产品配置的模板复制和修改
             - 游戏中敌人或道具的复制
             - 表单数据的草稿保存和恢复
             - 视图控制器的快速复制创建
             
-            **最佳实践：**
+            #### 最佳实践：
             - 深拷贝 vs 浅拷贝的选择要明确
             - 使用NSCopying或NSCoding协议
             - 考虑使用归档/解档实现复杂对象复制
@@ -198,18 +198,18 @@ enum DesignPattern: String, CaseIterable, Identifiable {
             """
         case .adapter:
             return """
-            **iOS应用场景：**
-            • 第三方SDK适配 - 适配不同版本API
-            • 旧代码适配 - 适配新的架构模式
-            • 数据格式适配 - JSON/XML数据转换
+            ### iOS应用场景：
+            - 第三方SDK适配 - 适配不同版本API
+            - 旧代码适配 - 适配新的架构模式
+            - 数据格式适配 - JSON/XML数据转换
             
-            **实际应用：**
+            #### 实际应用：
             - 适配不同版本的iOS API
             - 适配第三方SDK的接口变化
             - 将Legacy代码适配到新的架构
             - 不同数据模型之间的转换
             
-            **最佳实践：**
+            #### 最佳实践：
             - 使用协议定义目标接口
             - 保持适配器的单一职责
             - 考虑使用组合而非继承
@@ -217,18 +217,18 @@ enum DesignPattern: String, CaseIterable, Identifiable {
             """
         case .bridge:
             return """
-            **iOS应用场景：**
-            • 绘图系统 - Core Graphics/Metal/OpenGL实现
-            • 主题系统 - 不同主题的UI实现
-            • 网络层 - URLSession/Alamofire实现
+            ### iOS应用场景：
+            - 绘图系统 - Core Graphics/Metal/OpenGL实现
+            - 主题系统 - 不同主题的UI实现
+            - 网络层 - URLSession/Alamofire实现
             
-            **实际应用：**
+            #### 实际应用：
             - 跨平台绘图系统的抽象
             - 支持多种网络库的网络层抽象
             - 不同主题系统的UI实现
             - 多种存储方式的数据访问层
             
-            **最佳实践：**
+            #### 最佳实践：
             - 使用协议定义抽象接口
             - 避免在抽象层中包含实现细节
             - 使用依赖注入注入具体实现
@@ -236,18 +236,18 @@ enum DesignPattern: String, CaseIterable, Identifiable {
             """
         case .composite:
             return """
-            **iOS应用场景：**
-            • UIView 层级结构 - 视图树管理
-            • CALayer 层级结构 - 图层树管理
-            • 响应者链 - 事件处理链
+            ### iOS应用场景：
+            - UIView 层级结构 - 视图树管理
+            - CALayer 层级结构 - 图层树管理
+            - 响应者链 - 事件处理链
             
-            **实际应用：**
+            #### 实际应用：
             - 复杂的UI组件树结构
             - 文档结构的树形表示
             - 菜单系统的层级管理
             - 文件系统的树形结构
             
-            **最佳实践：**
+            #### 最佳实践：
             - 定义统一的组件接口
             - 支持递归操作，简化复杂结构处理
             - 考虑性能问题，避免过度嵌套
@@ -255,18 +255,18 @@ enum DesignPattern: String, CaseIterable, Identifiable {
             """
         case .decorator:
             return """
-            **iOS应用场景：**
-            • UIView 动画装饰 - 为视图添加动画效果
-            • 文本样式装饰 - 为文本添加样式效果
-            • 网络请求装饰 - 为请求添加日志、缓存等功能
+            ### iOS应用场景：
+            - UIView 动画装饰 - 为视图添加动画效果
+            - 文本样式装饰 - 为文本添加样式效果
+            - 网络请求装饰 - 为请求添加日志、缓存等功能
             
-            **实际应用：**
+            #### 实际应用：
             - 为视图添加边框、阴影、圆角等装饰
             - 为网络请求添加重试、缓存、日志功能
             - 为文本添加点击事件、高亮效果
             - 为图片添加滤镜、水印效果
             
-            **最佳实践：**
+            #### 最佳实践：
             - 保持装饰器的透明性
             - 支持装饰器的嵌套组合
             - 使用协议定义装饰器接口
@@ -274,18 +274,18 @@ enum DesignPattern: String, CaseIterable, Identifiable {
             """
         case .facade:
             return """
-            **iOS应用场景：**
-            • UIImagePickerController - 简化图片选择流程
-            • UIAlertController - 简化弹窗显示
-            • Core Data Stack - 简化数据库操作
+            ### iOS应用场景：
+            - UIImagePickerController - 简化图片选择流程
+            - UIAlertController - 简化弹窗显示
+            - Core Data Stack - 简化数据库操作
             
-            **实际应用：**
+            #### 实际应用：
             - 简化复杂的API调用流程
             - 封装第三方SDK的复杂接口
             - 提供统一的数据访问接口
             - 简化复杂的业务逻辑
             
-            **最佳实践：**
+            #### 最佳实践：
             - 保持Facade的简洁性
             - 提供合理默认值，简化使用
             - 避免过度封装，保持灵活性
@@ -293,18 +293,18 @@ enum DesignPattern: String, CaseIterable, Identifiable {
             """
         case .flyweight:
             return """
-            **iOS应用场景：**
-            • UITableViewCell 重用 - 节省内存
-            • UICollectionViewCell 重用 - 节省内存
-            • 图片缓存 - 避免重复加载
+            ### iOS应用场景：
+            - UITableViewCell 重用 - 节省内存
+            - UICollectionViewCell 重用 - 节省内存
+            - 图片缓存 - 避免重复加载
             
-            **实际应用：**
+            #### 实际应用：
             - 大量相似UI组件的重用
             - 字符串常量的缓存
             - 图片资源的缓存管理
             - 网络请求结果的缓存
             
-            **最佳实践：**
+            #### 最佳实践：
             - 正确区分内部状态和外部状态
             - 使用合适的缓存策略
             - 注意内存管理，避免内存泄漏
@@ -312,18 +312,18 @@ enum DesignPattern: String, CaseIterable, Identifiable {
             """
         case .proxy:
             return """
-            **iOS应用场景：**
-            • UITableViewDelegate - 代理UITableView操作
-            • UITableViewDataSource - 代理数据源操作
-            • 网络请求代理 - 管理网络请求
+            ### iOS应用场景：
+            - UITableViewDelegate - 代理UITableView操作
+            - UITableViewDataSource - 代理数据源操作
+            - 网络请求代理 - 管理网络请求
             
-            **实际应用：**
+            #### 实际应用：
             - 图片加载的懒加载代理
             - 权限检查的安全代理
             - 网络请求的缓存代理
             - 数据访问的权限控制代理
             
-            **最佳实践：**
+            #### 最佳实践：
             - 保持代理接口的简洁性
             - 正确处理代理的生命周期
             - 避免循环引用问题
@@ -331,18 +331,18 @@ enum DesignPattern: String, CaseIterable, Identifiable {
             """
         case .chainOfResponsibility:
             return """
-            **iOS应用场景：**
-            • UIResponder 响应者链 - 事件处理
-            • 手势识别器链 - 手势识别
-            • 网络请求拦截器链 - 请求处理
+            ### iOS应用场景：
+            - UIResponder 响应者链 - 事件处理
+            - 手势识别器链 - 手势识别
+            - 网络请求拦截器链 - 请求处理
             
-            **实际应用：**
+            #### 实际应用：
             - 用户输入事件的层层处理
             - 网络请求的认证、日志、缓存处理
             - 数据验证的链式处理
             - 错误处理的链式传播
             
-            **最佳实践：**
+            #### 最佳实践：
             - 明确每个处理器的职责边界
             - 提供默认的处理器实现
             - 支持动态添加和移除处理器
@@ -350,18 +350,18 @@ enum DesignPattern: String, CaseIterable, Identifiable {
             """
         case .command:
             return """
-            **iOS应用场景：**
-            • UndoManager - 撤销/重做操作
-            • 用户操作记录 - 操作历史管理
-            • 远程控制 - 远程命令执行
+            ### iOS应用场景：
+            - UndoManager - 撤销/重做操作
+            - 用户操作记录 - 操作历史管理
+            - 远程控制 - 远程命令执行
             
-            **实际应用：**
+            #### 实际应用：
             - 文本编辑器的撤销/重做功能
             - 游戏中的操作回放功能
             - 批量操作的队列管理
             - 定时任务的调度管理
             
-            **最佳实践：**
+            #### 最佳实践：
             - 使用不可变对象封装命令状态
             - 支持命令的序列化和反序列化
             - 提供命令的撤销和重做能力
@@ -369,18 +369,18 @@ enum DesignPattern: String, CaseIterable, Identifiable {
             """
         case .interpreter:
             return """
-            **iOS应用场景：**
-            • 表达式解析 - 数学表达式计算
-            • 配置文件解析 - 属性列表解析
-            • 查询语言解析 - 数据库查询
+            ### iOS应用场景：
+            - 表达式解析 - 数学表达式计算
+            - 配置文件解析 - 属性列表解析
+            - 查询语言解析 - 数据库查询
             
-            **实际应用：**
+            #### 实际应用：
             - 简单的数学表达式解析器
             - 配置文件的解析和验证
             - 搜索条件的解析和执行
             - 模板语言的解析和渲染
             
-            **最佳实践：**
+            #### 最佳实践：
             - 定义清晰的语法规则
             - 使用递归下降解析器
             - 提供良好的错误处理机制
@@ -388,18 +388,18 @@ enum DesignPattern: String, CaseIterable, Identifiable {
             """
         case .iterator:
             return """
-            **iOS应用场景：**
-            • Array/Dictionary 遍历 - 集合遍历
-            • Core Data 结果集遍历 - 数据查询
-            • 文件系统遍历 - 文件操作
+            ### iOS应用场景：
+            - Array/Dictionary 遍历 - 集合遍历
+            - Core Data 结果集遍历 - 数据查询
+            - 文件系统遍历 - 文件操作
             
-            **实际应用：**
+            #### 实际应用：
             - 自定义数据结构的遍历
             - 分页数据加载的迭代器
             - 树形结构的遍历
             - 网络请求结果的流式处理
             
-            **最佳实践：**
+            #### 最佳实践：
             - 使用Sequence协议简化迭代器实现
             - 支持多种遍历方式（正向、反向）
             - 处理迭代过程中的状态变化
@@ -407,18 +407,18 @@ enum DesignPattern: String, CaseIterable, Identifiable {
             """
         case .mediator:
             return """
-            **iOS应用场景：**
-            • NotificationCenter - 观察者模式中介
-            • 组件间通信 - 模块间解耦
-            • 聊天应用 - 消息路由
+            ### iOS应用场景：
+            - NotificationCenter - 观察者模式中介
+            - 组件间通信 - 模块间解耦
+            - 聊天应用 - 消息路由
             
-            **实际应用：**
+            #### 实际应用：
             - 复杂UI组件间的通信
             - 模块间的解耦通信
             - 多人协作的数据同步
             - 事件总线系统
             
-            **最佳实践：**
+            #### 最佳实践：
             - 避免中介者成为"上帝对象"
             - 使用协议定义通信接口
             - 支持异步通信
@@ -426,18 +426,18 @@ enum DesignPattern: String, CaseIterable, Identifiable {
             """
         case .memento:
             return """
-            **iOS应用场景：**
-            • 应用状态保存 - 应用后台恢复
-            • 游戏进度保存 - 游戏状态管理
-            • 文档编辑保存 - 文档版本管理
+            ### iOS应用场景：
+            - 应用状态保存 - 应用后台恢复
+            - 游戏进度保存 - 游戏状态管理
+            - 文档编辑保存 - 文档版本管理
             
-            **实际应用：**
+            #### 实际应用：
             - 表单数据的草稿保存
             - 游戏进度的检查点系统
             - 文档编辑的版本历史
             - 用户界面状态的保存和恢复
             
-            **最佳实践：**
+            #### 最佳实践：
             - 使用NSCoding或Codable实现序列化
             - 注意保存数据的大小和安全性
             - 提供合理的默认恢复策略
@@ -445,18 +445,18 @@ enum DesignPattern: String, CaseIterable, Identifiable {
             """
         case .observer:
             return """
-            **iOS应用场景：**
-            • NotificationCenter - 事件通知
-            • KVO (Key-Value Observing) - 属性监听
-            • Combine - 响应式编程
+            ### iOS应用场景：
+            - NotificationCenter - 事件通知
+            - KVO (Key-Value Observing) - 属性监听
+            - Combine - 响应式编程
             
-            **实际应用：**
+            #### 实际应用：
             - 用户登录状态变化通知
             - 数据变化时UI更新
             - 网络状态变化监听
             - 设备方向变化处理
             
-            **最佳实践：**
+            #### 最佳实践：
             - 使用弱引用避免循环引用
             - 及时移除不再需要的观察者
             - 考虑使用Combine框架的现代化实现
@@ -464,18 +464,18 @@ enum DesignPattern: String, CaseIterable, Identifiable {
             """
         case .state:
             return """
-            **iOS应用场景：**
-            • UIViewController 生命周期 - 状态管理
-            • 网络连接状态 - 连接管理
-            • 用户认证状态 - 登录管理
+            ### iOS应用场景：
+            - UIViewController 生命周期 - 状态管理
+            - 网络连接状态 - 连接管理
+            - 用户认证状态 - 登录管理
             
-            **实际应用：**
+            #### 实际应用：
             - 网络请求的加载、成功、失败状态
             - 用户界面的加载、内容、错误状态
             - 音频播放的播放、暂停、停止状态
             - 文件上传的上传中、完成、失败状态
             
-            **最佳实践：**
+            #### 最佳实践：
             - 使用枚举定义状态类型
             - 确保状态转换的合法性
             - 提供状态变化的通知机制
@@ -483,18 +483,18 @@ enum DesignPattern: String, CaseIterable, Identifiable {
             """
         case .strategy:
             return """
-            **iOS应用场景：**
-            • 图片加载策略 - 缓存策略
-            • 数据验证策略 - 输入验证
-            • 动画策略 - 动画效果
+            ### iOS应用场景：
+            - 图片加载策略 - 缓存策略
+            - 数据验证策略 - 输入验证
+            - 动画策略 - 动画效果
             
-            **实际应用：**
+            #### 实际应用：
             - 不同网络环境的图片加载策略
             - 多种支付方式的选择策略
             - 不同数据格式的解析策略
             - 多种导航方式的切换策略
             
-            **最佳实践：**
+            #### 最佳实践：
             - 使用协议定义策略接口
             - 支持策略的动态切换
             - 提供默认策略实现
@@ -502,18 +502,18 @@ enum DesignPattern: String, CaseIterable, Identifiable {
             """
         case .templateMethod:
             return """
-            **iOS应用场景：**
-            • UIViewController 生命周期 - 视图生命周期
-            • UIView 动画 - 动画模板
-            • 网络请求 - 请求流程
+            ### iOS应用场景：
+            - UIViewController 生命周期 - 视图生命周期
+            - UIView 动画 - 动画模板
+            - 网络请求 - 请求流程
             
-            **实际应用：**
+            #### 实际应用：
             - 标准的网络请求流程模板
             - 统一的表单验证流程
             - 标准的数据加载和显示流程
             - 通用的用户操作处理流程
             
-            **最佳实践：**
+            #### 最佳实践：
             - 将可变步骤定义为抽象方法
             - 提供合理的默认实现
             - 使用协议定义模板方法
@@ -521,18 +521,18 @@ enum DesignPattern: String, CaseIterable, Identifiable {
             """
         case .visitor:
             return """
-            **iOS应用场景：**
-            • UIView 层级遍历 - 视图树操作
-            • Core Data 对象图遍历 - 数据处理
-            • 文件系统遍历 - 文件操作
+            ### iOS应用场景：
+            - UIView 层级遍历 - 视图树操作
+            - Core Data 对象图遍历 - 数据处理
+            - 文件系统遍历 - 文件操作
             
-            **实际应用：**
+            #### 实际应用：
             - 复杂UI结构的分析和处理
             - 数据模型的批量操作
             - 文件系统的递归操作
             - 对象结构的序列化和反序列化
             
-            **最佳实践：**
+            #### 最佳实践：
             - 使用协议定义访问者接口
             - 支持多重分派
             - 考虑使用泛型简化访问者实现
